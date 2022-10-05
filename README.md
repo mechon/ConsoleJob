@@ -1,6 +1,20 @@
 #### Start: Template Description
 
-A project template for creating console app with file and db logging, with email containing execution summary. 
+A project template for creating console app with file and db logging, with email containing execution summary.
+
+To install on machine:
+1. Checkout this repo
+2. On root, run the ff.
+```
+dotnet new --install .\
+```
+
+To use:
+1. Pre-req, installed on machine
+2. On terminal
+```
+dotnet new console-job -o <AppName>
+```
 
 #### End: Template Description
 ---
@@ -8,7 +22,7 @@ A project template for creating console app with file and db logging, with email
 
 | Code Analyzer | Security Scan | Build | Pipeline
 | ----- | ----- | ----- | ----- |
-| <insert badge link> | <insert badge link> | <insert badge link> | <insert badge link>
+| <insert badge link> | <insert badge link> | <insert badge link> | <insert badge link> |
 
 # Introduction
 Describe the purpose of the job
