@@ -8,20 +8,23 @@ internal static class AppServices
     var appSettings = JsonSerializer.Deserialize<AppSettings>(ctx.Configuration[appName]);
 
     if (appSettings is null)
-      throw new CebAppException($"Environment Variable '{appName}' not set");
+      throw new AppException($"Environment Variable '{appName}' not set");
 
     svc.Configure<AppSettings>(ctx.Configuration);
 
     svc.AddHttpClient(SendGridService.AccessClient, client =>
     {
-      client.BaseAddress = new Uri($"{ctx.Configuration.GetValue<string>("Settings:SendGrid:Url")}v1/oauth2/accessToken");
+      var baseUrl = ctx.Configuration.GetValue<string>("Settings:SendGrid:Url");
+      var authPath = ctx.Configuration.GetValue<string>("Settings:SendGrid:AuthenticationPath");
+      client.BaseAddress = new Uri($"{baseUrl}{authPath}");
       client.DefaultRequestHeaders.Add("Accept", "application/json");
-      client.DefaultRequestHeaders.Add("Authorization", $"Basic {appSettings.Settings.SendGrid.Token}");
+      client.DefaultRequestHeaders.Add("Authorization", $"Basic {appSettings.Settings.SendGrid.AuthorizationKey}");
     });
     svc.AddHttpClient(SendGridService.MailClient, client =>
     {
-      var uri = new Uri($"{ctx.Configuration.GetValue<string>("Settings:SendGrid:Url")}ceb-sendgrid/send");
-      client.BaseAddress = uri;
+      var baseUrl = ctx.Configuration.GetValue<string>("Settings:SendGrid:Url");
+      var servicePath = ctx.Configuration.GetValue<string>("Settings:SendGrid:ServicePath");
+      client.BaseAddress = new Uri($"{baseUrl}{servicePath}");
       client.DefaultRequestHeaders.Add("Accept", "application/json");
     });
 

@@ -20,7 +20,7 @@ internal class HttpClientService : IHttpClientService
   public async Task<string> PostAsync(string requestUri, HttpContent content, CancellationToken cancellationToken)
   {
     if (_httpClient is null)
-      throw new CebAppException("Http client is not set.");
+      throw new AppException("Http client is not set.");
 
     var response = await _httpClient.PostAsync(requestUri, content, cancellationToken);
 
@@ -30,7 +30,7 @@ internal class HttpClientService : IHttpClientService
   public IHttpClientService AddCustomHeader(string key, string value)
   {
     if (_httpClient is null)
-      throw new CebAppException("Http client is not set.");
+      throw new AppException("Http client is not set.");
 
     _httpClient.DefaultRequestHeaders.Add(key, value);
 
@@ -42,7 +42,7 @@ internal class HttpClientService : IHttpClientService
     var content = await message.Content.ReadAsStringAsync();
 
     if (!message.IsSuccessStatusCode)
-      throw new CebAppException($"{message.ReasonPhrase}\nContent: {content}");
+      throw new AppException($"{message.ReasonPhrase}\nContent: {content}");
 
     return content;
   }
