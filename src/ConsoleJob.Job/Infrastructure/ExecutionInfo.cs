@@ -60,16 +60,8 @@ public class ExecutionInfo
         <p>Application Info:</p>
         <table style='border: 1px solid black; border-collapse: collapse; width: 100%'>
             <tr style='border: 1px solid black;'>
-               <td style='border: 1px solid black;'>Workflow API</td>
-               <td style='border: 1px solid black;'>{_settings.Settings.Workflow.Url}</td>
-            </tr>
-            <tr style='border: 1px solid black;'>
-               <td style='border: 1px solid black;'>Sharepoint Site</td>
-               <td style='border: 1px solid black;'>{_settings.Settings.Sharepoint.Url}</td>
-            </tr>
-            <tr style='border: 1px solid black;'>
-               <td style='border: 1px solid black;'>List Name</td>
-               <td style='border: 1px solid black;'>{_settings.Settings.Sharepoint.ListName}</td>
+               <td style='border: 1px solid black;'>Microservice</td>
+               <td style='border: 1px solid black;'>{_settings.Settings.Microservice.Url}</td>
             </tr>
             <tr style='border: 1px solid black;'>
                 <td style='border: 1px solid black;'>Server</td>
