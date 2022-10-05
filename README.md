@@ -92,8 +92,9 @@ If no email received, you can check db logs:
 | Production | `production_db_server` | `db_name` |
 
 Run SQL snippet:
-
-`SELECT * FROM [db_name].[dbo].[Events] WHERE Application = '<Application Name>' ORDER BY TimeStamp DESC`
+``` sql
+SELECT * FROM [db_name].[dbo].[Events] WHERE Application = '<Application Name>' ORDER BY TimeStamp DESC
+```
 
 You can also check file logs:
 | Stage | Server | Directory |
