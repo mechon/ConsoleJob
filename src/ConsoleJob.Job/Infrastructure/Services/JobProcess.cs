@@ -20,9 +20,9 @@ public class JobProcess
     return await _mediator.Send(new SampleQuery(), cancellationToken);
   }
 
-  public async Task StepTwo(IEnumerable<string> stepOnResul, CancellationToken cancellationToken)
+  public async Task StepTwo(IEnumerable<string> stepOneResult, CancellationToken cancellationToken)
   {
-    await _mediator.Send(new SampleCommand(stepOnResul), cancellationToken);
+    await _mediator.Send(new SampleCommand(stepOneResult), cancellationToken);
   }
 
   public async Task EmailReportAsync(TimeSpan elapsed, CancellationToken cancel)
