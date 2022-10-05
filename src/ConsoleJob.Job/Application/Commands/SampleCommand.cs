@@ -1,6 +1,6 @@
 ﻿namespace ConsoleJob.Job.Application.Commands;
 
-public record SampleCommand() : IRequest;
+public record SampleCommand(IEnumerable<string> Resutl) : IRequest;
 
 public class SampleCommandHandler : IRequestHandler<SampleCommand>
 {
