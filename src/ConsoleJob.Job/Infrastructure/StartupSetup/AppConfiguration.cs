@@ -2,14 +2,15 @@
 
 internal static class AppConfiguration
 {
-  public static void Set(HostBuilderContext context, IConfigurationBuilder configuration)
-  {
-    var basePath = context.HostingEnvironment.IsDevelopment() ? Directory.GetCurrentDirectory() : AppInfo.ContentRoot;
+  public static IHostBuilder SetAppConfig(this IHostBuilder builder)
+    => builder.ConfigureAppConfiguration((ctx, cfg) =>
+    {
+      var basePath = ctx.HostingEnvironment.IsDevelopment() ? Directory.GetCurrentDirectory() : AppInfo.ContentRoot;
 
-    configuration.SetBasePath(basePath)
-      .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-      .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true)
-      .AddEnvironmentVariables(context.HostingEnvironment.ApplicationName)
-      .Build();
-  }
+      cfg.SetBasePath(basePath)
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddJsonFile($"appsettings.{ctx.HostingEnvironment.EnvironmentName}.json", optional: true)
+        .AddEnvironmentVariables(ctx.HostingEnvironment.ApplicationName)
+        .Build();
+    });
 }

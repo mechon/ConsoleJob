@@ -6,10 +6,7 @@ public class SampleQueryHandler : IRequestHandler<SampleQuery, IEnumerable<strin
 {
   private readonly ILogger<SampleQueryHandler> _logger;
 
-  public SampleQueryHandler(ILogger<SampleQueryHandler> logger)
-  {
-    _logger = logger;
-  }
+  public SampleQueryHandler(ILogger<SampleQueryHandler> logger) => _logger = logger;
 
   public async Task<IEnumerable<string>> Handle(SampleQuery query, CancellationToken cancellationToken)
   {

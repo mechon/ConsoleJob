@@ -6,14 +6,14 @@ public class HostedService : IHostedService
 
   private readonly ILogger<HostedService> _logger;
   private readonly IHostApplicationLifetime _lifetime;
-  private readonly JobProcess _jobProcess;
+  private readonly JobSteps _jobSteps;
   private readonly Stopwatch _timer;
 
-  public HostedService(ILogger<HostedService> logger, IHostApplicationLifetime lifetime, JobProcess jobProcess)
+  public HostedService(ILogger<HostedService> logger, IHostApplicationLifetime lifetime, JobSteps jobSteps)
   {
     _logger = logger;
     _lifetime = lifetime;
-    _jobProcess = jobProcess;
+    _jobSteps = jobSteps;
 
     _timer = new Stopwatch();
   }
@@ -34,7 +34,7 @@ public class HostedService : IHostedService
     _timer.Stop();
     _logger.LogInformation("Job is stopping");
 
-    await _jobProcess.EmailReportAsync(_timer.Elapsed, cancellationToken);
+    await _jobSteps.EmailReportAsync(_timer.Elapsed, cancellationToken);
 
     Log.CloseAndFlush();
   }
@@ -43,13 +43,13 @@ public class HostedService : IHostedService
   {
     try
     {
-      await _jobProcess.StepOne(cancellationToken)
-                       .Then(cancellationToken, _jobProcess.StepTwo);
+      await _jobSteps.StepOne(cancellationToken)
+        .Then(_jobSteps.StepTwo, cancellationToken);
     }
     catch (Exception exception)
     {
       _logger.LogError(exception, "Something went wrong!");
-      _jobProcess.Exception = exception;
+      _jobSteps.Exception = exception;
       Environment.ExitCode = ErrorInvalidFunction;
     }
     finally

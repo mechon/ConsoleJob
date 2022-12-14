@@ -19,37 +19,38 @@ internal static class AppLogger
     return columnOptions;
   }
 
-  public static void Set(HostBuilderContext hostContext, LoggerConfiguration loggerConfiguration)
-  {
-    var appName = hostContext.HostingEnvironment.ApplicationName;
-    var appSettings = JsonSerializer.Deserialize<AppSettings>(hostContext.Configuration[appName]);
+  public static IHostBuilder AddSerilog(this IHostBuilder builder)
+    => builder.UseSerilog((ctx, cfg) =>
+    {
+      var appName = ctx.HostingEnvironment.ApplicationName;
+      var appSettings = JsonSerializer.Deserialize<AppSettings>(ctx.Configuration[appName]);
 
-    var logDirectory = $@"{AppInfo.ContentRoot}\Logs";
-    Init(logDirectory);
+      var logDirectory = $@"{AppInfo.ContentRoot}\Logs";
+      Init(logDirectory);
 
-    var file = File.CreateText($@"{logDirectory}\self.log");
-    Serilog.Debugging.SelfLog.Enable(TextWriter.Synchronized(file));
+      var file = File.CreateText($@"{logDirectory}\self.log");
+      Serilog.Debugging.SelfLog.Enable(TextWriter.Synchronized(file));
 
-    loggerConfiguration.Enrich.WithProperty("Application", appName)
-        .Enrich.WithProperty("Server", Environment.MachineName)
-        .Enrich.WithProperty("EnvironmentUserName", AppInfo.EnvironmentUserName)
-        .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Debug)
-        .WriteTo.File
-        (
-            path: $@"{logDirectory}\log-.txt",
-            rollingInterval: RollingInterval.Day,
-            restrictedToMinimumLevel: LogEventLevel.Verbose
-        )
-        .WriteTo.MSSqlServer
-        (
-            connectionString: appSettings!.ConnectionStrings.LoggerDb,
-            sinkOptions: new MSSqlServerSinkOptions
-            {
-              TableName = "Events",
-              AutoCreateSqlTable = false
-            },
-            columnOptions: BuildColumnOptions(),
-            restrictedToMinimumLevel: LogEventLevel.Information
-        );
-  }
+      cfg.Enrich.WithProperty("Application", appName)
+          .Enrich.WithProperty("Server", Environment.MachineName)
+          .Enrich.WithProperty("EnvironmentUserName", AppInfo.EnvironmentUserName)
+          .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Debug)
+          .WriteTo.File
+          (
+              path: $@"{logDirectory}\log-.txt",
+              rollingInterval: RollingInterval.Day,
+              restrictedToMinimumLevel: LogEventLevel.Verbose
+          )
+          .WriteTo.MSSqlServer
+          (
+              connectionString: appSettings!.ConnectionStrings.LoggerDb,
+              sinkOptions: new MSSqlServerSinkOptions
+              {
+                TableName = "Events",
+                AutoCreateSqlTable = false
+              },
+              columnOptions: BuildColumnOptions(),
+              restrictedToMinimumLevel: LogEventLevel.Information
+          );
+    });
 }

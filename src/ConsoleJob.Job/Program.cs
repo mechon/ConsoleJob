@@ -1,6 +1,6 @@
 ﻿await Host.CreateDefaultBuilder(args)
-          .ConfigureAppConfiguration(AppConfiguration.Set)
-          .UseSerilog(AppLogger.Set)
-          .ConfigureServices(AppServices.Set)
+          .SetAppConfig()
+          .AddSerilog()
+          .AddCustomServices()
           .UseDefaultServiceProvider(opts => opts.ValidateScopes = false)
           .RunConsoleAsync();
