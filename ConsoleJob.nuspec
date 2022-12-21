@@ -3,7 +3,7 @@
   <metadata>
     <id>MEchon.ConsoleJob.Template</id>
     <title>.NET Console Job Solution</title>
-    <version>1.0.0</version>
+    <version>0.0.1</version>
     <authors>Mark Echon</authors>
     <description>A project template for creating console jobs.</description>
     <language>en-US</language>
@@ -17,7 +17,7 @@
     <readme>README.md</readme>
   </metadata>
   <files>
-    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore" />
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**" />
     <file src="README.md" />
   </files>
 </package>
