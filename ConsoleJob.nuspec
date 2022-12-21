@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>MEchon.ConsoleJob.Template</id>
+    <title>.NET Console Job Solution</title>
+    <version>1.0.0</version>
+    <authors>Mark Echon</authors>
+    <description>A project template for creating console jobs.</description>
+    <language>en-US</language>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/mechon/ConsoleJob</projectUrl>
+    <releaseNotes>Updated for nuget release</releaseNotes>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <tags>"Console Job" console job</tags>
+    <readme>README.md</readme>
+  </metadata>
+  <files>
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore" />
+    <file src="README.md" />
+  </files>
+</package>
