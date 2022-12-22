@@ -3,11 +3,12 @@
   <metadata>
     <id>MEchon.ConsoleJob.Template</id>
     <title>.NET Console Job Solution</title>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <authors>Mark Echon</authors>
     <description>A project template for creating console jobs.</description>
     <language>en-US</language>
     <license type="expression">MIT</license>
+    <repository type="git" url="https://github.com/mechon/ConsoleJob" branch="main" />
     <projectUrl>https://github.com/mechon/ConsoleJob</projectUrl>
     <releaseNotes>Updated for nuget release</releaseNotes>
     <packageTypes>
