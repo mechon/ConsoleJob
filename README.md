@@ -1,20 +1,24 @@
 #### Start: Template Description
 
-A project template for creating console app with file and db logging, with email containing execution summary.
+## Using the dotnet CLI template
 
-To install on machine:
-1. Checkout this repo
-2. On root, run the ff.
-```
-dotnet new --install .\
+1. Install template from [NuGet (https://www.nuget.org/packages/MEchon.ConsoleJob.Template)](https://www.nuget.org/packages/MEchon.ConsoleJob.Template):
+
+```powershell
+dotnet new -i MEchon.ConsoleJob.Template
 ```
 
-To use:
-1. Pre-req, installed on machine
-2. On terminal
+2. You should see "MEchon Console Job Template" with shortname "console-job" in the list of templates from `dotnet new list` after this installation successfully.
+
+3. Go to your development directory
+
+4. Run this command to create the solution structure in a subfolder name `My.ProjectName`:
+
 ```
-dotnet new console-job -o <AppName>
+dotnet new console-job -o My.ProjectName
 ```
+
+The `My.ProjectName` directory and solution file will be created, and inside that will be all of your new solution contents, properly namespaced and ready to run/test!
 
 #### End: Template Description
 ---
@@ -31,6 +35,7 @@ Describe the purpose of the job
 Show mapping in table form.
 
 *Example:*
+
 | Data | Mapped Field | Source |
 | ----------- | ----------- | ----------- |
 | Employee Name   | EmployeeName | SAP / Dump File / Etc |
@@ -40,6 +45,7 @@ Show mapping in table form.
 List all services and external resources used.
 
 *Example:*
+
 | Service | Staging | Production |
 | ----------- | ----------- | ----------- |
 | Database | `staging_db` | `production_db` |
@@ -85,6 +91,7 @@ Detail how to troubleshoot the application. Show where the file logs are located
 Executions generate report and are sent to email addresses configured on `appsettings.json`.
 
 If no email received, you can check db logs:
+
 | Stage | Server | Database |
 | ----------- | ----------- | ----------- |
 | Development | - | - |
@@ -97,6 +104,7 @@ SELECT * FROM [db_name].[dbo].[Events] WHERE Application = '<Application Name>' 
 ```
 
 You can also check file logs:
+
 | Stage | Server | Directory |
 | ----------- | ----------- | ----------- |
 | Development | - | - |
